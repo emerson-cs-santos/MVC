@@ -6,9 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clientes extends Model
 {
-    // Define Colunas
-    protected $fillable = [ 'id', 'nome','sobrenome' ];
+        protected $fillable = [
+            'id'
+            ,'nome'
+            ,'endereco'
+            ,'email'
+            ,'telefone'
+        ];
 
-    // Define Tabela
-    protected $table = 'Clientes';
+        protected $table = 'Clientes';
+
+
+    public function vendas()
+    {
+        return $this->hasMany(Vendas::class, 'cliente_id');
+    }
 }

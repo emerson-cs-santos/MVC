@@ -48,6 +48,10 @@
                 font-size: 84px;
             }
 
+            .data_maior{
+                font-size: 40px;
+            }
+
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -81,7 +85,14 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    MVC - Aula 4
+                    MVC - Aula 5
+                </div>
+
+                <div class='data_maior m-b-md'>
+                    Data e Hora:
+                    <div>
+                        {{ date('d-m-y H:i:s') }}
+                    </div>
                 </div>
 
                 <div class="links">

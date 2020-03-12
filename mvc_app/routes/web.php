@@ -15,6 +15,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/Admin', function () {
-    return view('admin');
-});
