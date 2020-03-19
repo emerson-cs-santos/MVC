@@ -19,4 +19,16 @@ class Vendas extends Model
     {
         return $this->belongsTo(Clientes::class, 'cliente_id');
     }
+
+    public function notaFiscal()
+    {
+        return $this->hasOne( NotasFiscais::class, 'venda_id');
+    }
+
+    public function produtosVenda()
+    {
+
+        return $this->hasMany( ProdutosVenda::class, 'venda_id');
+    }
+
 }
