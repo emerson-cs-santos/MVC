@@ -36,7 +36,7 @@ class Clientes extends Model
 
     public function cliente_vendedor()
     {
-        return $this->hasManyThrough( Vendedores::class, Vendas::class );
+        return $this->hasManyThrough('App\Vendedores', 'App\Vendas');
     }
 
 
