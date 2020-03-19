@@ -12,5 +12,11 @@ class ProdutosVenda extends Model
             'quantidade',
             'valor'];
 
-protected $table = 'ProdutosVenda';
+    protected $table = 'ProdutosVenda';
+
+    public function produtos()
+    {
+        return $this->hasMany( ProdutosVenda::class, 'produto_id');
+    }
+
 }
