@@ -1,0 +1,127 @@
+Criar 
+	ok - models(filable) 
+	ok - migrations com forekey 
+	ok - relacionamentos(metodos)
+	ok - Fazer push, mostrar ao professor
+	
+
+php artisan make:model User
+php artisan make:migration create_users_table
+User
+	id
+	,nome
+	,email
+	,type
+	
+App\User::create( [ 'name' => 'Emerson', 'email' => 'emerson@outlook.com.br', 'password' => 'teste' ] ); 
+App\User::create( [ 'name' => 'Emerson2', 'email' => 'emerson2@outlook.com.br', 'password' => 'teste'] ); 
+	
+	
+php artisan make:model Categorias
+php artisan make:migration cria_tabela_categorias --create Categorias
+Categorias
+	id
+	,nome string e unique
+	,img(base64) 
+
+App\Categorias::create( [ 'nome' => 'Cat1', 'img' => 'caminho1' ] ); 
+App\Categorias::create( [ 'nome' => 'Cat2', 'img' => 'caminho2' ] );	
+
+
+php artisan make:model Produtos	
+php artisan make:migration cria_tabela_produtos --create Produtos
+Produtos
+	id
+	,nome
+	,desc
+	,fk_categoria
+	,img
+	,preco
+	,desconto
+	,ativo
+	
+App\Produtos::create( [ 'nome' => 'Prod1', 'desc' => 'Descrição legal', 'fk_categoria' => 1, 'img' => 'caminho', 'preco' => 15, 'desconto' => 1, 'ativo' => 0 ] ); 
+App\Produtos::create( [ 'nome' => 'Prod2', 'desc' => 'Descrição legal 2', 'fk_categoria' => 2, 'img' => 'caminho 2', 'preco' => 25, 'desconto' => 2, 'ativo' => 0 ] ); 
+	
+App\Produtos::find(1)->categoria;
+App\Produtos::find(1)->Vendas;
+App\Produtos::find(1)->Carrinho;
+
+php artisan make:model Clientes	
+php artisan make:migration cria_tabela_clientes --create Clientes
+Clientes
+	id
+	,nome
+	,endereco
+	,telefone
+	,fk_usuario
+	
+App\Clientes::find(1)->usuario;	
+App\Clientes::find(1)->vendas;	
+App\Clientes::find(1)->Vendas_cliente;
+	
+App\Clientes::create( [ 'nome' => 'Cliente 1', 'endereco' => 'Rua 1', 'telefone' => 1156618758, 'fk_usuario' => 1  ] ); 
+App\Clientes::create( [ 'nome' => 'Cliente 2', 'endereco' => 'Rua 2', 'telefone' => 1121275869, 'fk_usuario' => 2  ] ); 
+
+
+php artisan make:model Vendas	
+php artisan make:migration cria_tabela_vendas --create Vendas
+Vendas
+	id
+	,nr_pedido
+	,fk_cliente
+	,dt_venda
+	
+App\Vendas::find(1)->cliente;
+App\Vendas::find(2)->VendaProdutos;
+	
+App\Vendas::create( [ 'nr_pedido' => 10, 'fk_cliente' => 1, 'dt_venda' => date("Y-m-d H:i:s")  ] ); 
+App\Vendas::create( [ 'nr_pedido' => 15, 'fk_cliente' => 1, 'dt_venda' => date("Y-m-d H:i:s")  ] ); 
+App\Vendas::create( [ 'nr_pedido' => 20, 'fk_cliente' => 2, 'dt_venda' => date("Y-m-d H:i:s")  ] ); 
+
+
+php artisan make:model VendaItem
+php artisan make:migration cria_tabela_vendaItem --create VendaItem
+VendaItem
+	id
+	,fk_venda
+	,fk_produto
+	,qtd_venda
+	
+App\VendaItem::find(2)->Produto;
+	
+App\VendaItem::create( [ 'fk_venda' => 1, 'fk_produto' => 1, 'qtd_venda' => 26  ] ); 
+App\VendaItem::create( [ 'fk_venda' => 2, 'fk_produto' => 2, 'qtd_venda' => 69  ] ); 
+App\VendaItem::create( [ 'fk_venda' => 2, 'fk_produto' => 1, 'qtd_venda' => 75  ] ); 
+
+
+php artisan make:model Carrinho
+php artisan make:migration cria_tabela_carrinho --create Carrinho
+Carrinho
+	,id
+	,email
+	,fk_produto
+	,qtd
+	,fk_usuario
+	
+
+App\Carrinho::find(1)->Usuario;
+App\Carrinho::find(2)->Produto;
+	
+App\Carrinho::create( [ 'email' => 'syphonemerson@yahoo.com.br', 'fk_produto' => 1, 'qtd' => 14, 'fk_usuario' => 1  ] ); 
+App\Carrinho::create( [ 'email' => 'syphonemerson22@yahoo.com.br', 'fk_produto' => 1, 'qtd' => 69, 'fk_usuario' => 1  ] );
+App\Carrinho::create( [ 'email' => 'syphonemerson2@yahoo.com.br', 'fk_produto' => 2, 'qtd' => 38, 'fk_usuario' => 2  ] ); 
+	
+	
+php artisan make:model Movimentacao	
+php artisan make:migration cria_tabela_movimentacao --create Movimentacao
+Movimentacao - Calcular estoque
+	id
+	,fk_produto
+	,qtd_movimento
+	,tipo_movimento
+
+App\Movimentacao::find(2)->Produto;
+	
+App\Movimentacao::create( [ 'fk_produto' => 1, 'qtd_movimento' => 96, 'tipo_movimento' => 'Entrada'  ] ); 
+App\Movimentacao::create( [ 'fk_produto' => 2, 'qtd_movimento' => 12, 'tipo_movimento' => 'Entrada'  ] ); 
