@@ -49,3 +49,19 @@ Route::get('/categoria', function ()
         ]
     ]);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+// Aula 10
+Route::group( ['prefix' => 'clientes'], function()
+{
+    Route::get('/listar', 'ClientesController@listar')->middleware('auth');
+});
+
+Route::group( ['prefix' => 'vendedores'], function()
+{
+    Route::get('/listar', 'VendedoresController@listar');
+});
