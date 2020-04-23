@@ -25,6 +25,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item"><a href="/clientes/listar">Clientes</a></li>
                                 <li class="list-group-item"><a href="/vendedores/listar">Vendedores</a></li>
+                                <li class="list-group-item"><a href="{{ route('users.index') }}">Usuários</a></li>
                             </ul>
                         </div>
                     </div>

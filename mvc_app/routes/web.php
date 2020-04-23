@@ -65,3 +65,10 @@ Route::group( ['prefix' => 'vendedores'], function()
 {
     Route::get('/listar', 'VendedoresController@listar');
 });
+
+// Aula 11
+Route::group(['middleware' => ['auth']], function()
+{
+	Route::resource('users','UserController');
+	Route::resource('roles','RoleController');
+});
