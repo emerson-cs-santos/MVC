@@ -5,70 +5,75 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Usuários</h2>
+            <h2>Editar Usuário</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}"> + Novo usuário</a>
+            <a class="btn btn-primary" href="{{ route('users.index') }}"> Voltar</a>
         </div>
     </div>
 </div>
+<br>
 
-@if ($message = Session::get('success'))
+@if (count($errors) > 0)
 
-<div class="alert alert-success mt-4">
-  <p>{{ $message }}</p>
-</div>
+  <div class="alert alert-danger">
+    <strong>Ops!</strong> Algo errado com os dados.<br><br>
+    <ul>
+       @foreach ($errors->all() as $error)
+
+         <li>{{ $error }}</li>
+
+       @endforeach
+    </ul>
+  </div>
 
 @endif
 
 
-<table class="table table-bordered mt-2">
+{!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
 
- <tr>
-   <th>ID</th>
-   <th>Nome</th>
-   <th>Email</th>
-   <th>Perfil</th>
-   <th width="280px">Ação</th>
- </tr>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Nome:</strong>
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+        </div>
+    </div>
 
- @foreach ($data as $key => $user)
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Email:</strong>
+            {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+        </div>
+    </div>
 
-  <tr>
-    <td>{{ ++$i }}</td>
-    <td>{{ $user->name }}</td>
-    <td>{{ $user->email }}</td>
-    <td>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Senha:</strong>
+            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+        </div>
+    </div>
 
-      @if(!empty($user->getRoleNames()))
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Confirme a senha:</strong>
+            {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
+        </div>
+    </div>
 
-        @foreach($user->getRoleNames() as $v)
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Perfil:</strong>
+            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+        </div>
+    </div>
 
-           <label class="badge badge-success">{{ $v }}</label>
+    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <button type="submit" class="btn btn-primary">Gravar</button>
+    </div>
 
-        @endforeach
+</div>
 
-      @endif
-
-    </td>
-
-    <td>
-       <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Mostrar</a>
-       <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Editar</a>
-
-        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-
-            {!! Form::submit('Apagar', ['class' => 'btn btn-danger']) !!}
-
-        {!! Form::close() !!}
-
-    </td>
-  </tr>
-
- @endforeach
-
-</table>
-
-{!! $data->render() !!}
+{!! Form::close() !!}
 
 @endsection
