@@ -27,6 +27,7 @@
                                 <li class="list-group-item"><a href="/vendedores/listar">Vendedores</a></li>
                                 <li class="list-group-item"><a href="{{ route('users.index') }}">Usuários</a></li>
                                 <li class="list-group-item"><a href="{{ route('roles.index') }}">Roles/Papéis</a></li>
+                                <li class="list-group-item"><a href="{{ route('cores.index') }}">Cores</a></li>
                             </ul>
                         </div>
                     </div>

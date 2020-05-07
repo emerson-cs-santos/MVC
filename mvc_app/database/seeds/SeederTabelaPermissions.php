@@ -18,7 +18,11 @@ class SeederTabelaPermissions extends Seeder
             'cliente-list',
             'cliente-create',
             'cliente-edit',
-            'cliente-delete'
+            'cliente-delete',
+			'cor-list',
+            'cor-create',
+            'cor-edit',
+            'cor-delete'
         ];
 
         foreach ($permissions as $permission)

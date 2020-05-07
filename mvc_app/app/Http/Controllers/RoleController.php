@@ -20,7 +20,7 @@ class RoleController extends Controller
 
         $this->middleware( 'permission:role-edit', ['only' => ['edit','update']] );
 
-        $this->middleware(' permission:role-delete', ['only' => ['destroy']] );
+        $this->middleware('permission:role-delete', ['only' => ['destroy']] );
     }
 
     public function index( Request $request )
@@ -77,7 +77,7 @@ class RoleController extends Controller
 
         $rolePermissions = DB::table("role_has_permissions")
             ->where("role_has_permissions.role_id",$id)
-            ->pluck(	'role_has_permissions.permission_id', 'role_has_permissions.permission_id')
+            ->pluck('role_has_permissions.permission_id')
             ->all();
 
         return view('roles.edit',
@@ -102,7 +102,7 @@ class RoleController extends Controller
 
 	public function destroy($id)
 	{
-    	DB::table("roles")->where('id',$id)->delete();
+        DB::table("roles")->where('id',$id)->delete();
 
     	return redirect()->route('roles.index')->with('success','Perfil apagado com sucesso');
 	}
