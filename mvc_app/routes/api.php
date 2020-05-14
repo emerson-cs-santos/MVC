@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// v1 = Versão 1 da API, qualquer alteração deve-se criar uma nova versão - boas práticas
+Route::group( ['prefix' => 'v1'], function()
+{
+    Route::get('/Vendedores', 'VendedoresController@index');
+    Route::post('/Vendedores', 'VendedoresController@store');
+    Route::delete('/Vendedores/{id}', 'VendedoresController@destroy');
+    Route::get('/Vendedores/{id}', 'VendedoresController@show');
+    Route::put('/Vendedores/{id}', 'VendedoresController@update');
+});

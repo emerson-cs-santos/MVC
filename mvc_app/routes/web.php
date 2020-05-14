@@ -61,10 +61,9 @@ Route::group( ['prefix' => 'clientes'], function()
     Route::get('/listar', 'ClientesController@listar')->middleware('auth');
 });
 
-Route::group( ['prefix' => 'vendedores'], function()
-{
-    Route::get('/listar', 'VendedoresController@listar');
-});
+
+Route::get('/listarVendedoresOLD', 'VendedoresControllerOLD@listar');
+
 
 // Aula 11 e 12
 Route::group(['middleware' => ['auth']], function()
