@@ -31,6 +31,11 @@ class CoresController extends Controller
         return view( 'Cores.index', compact( 'data'))->with( 'i', ( $request->input( 'page', 1) - 1) * 5);
     }
 
+    public function indexAPI()
+    {
+        return Cor::all();
+    }
+
 
     public function create()
     {
@@ -51,12 +56,36 @@ class CoresController extends Controller
             return redirect()->route( 'cores.index')->with( 'success', 'Cor criada com sucesso');
     }
 
+    public function storeAPI(Request $request)
+    {
+        $json = $request->getContent();
+
+        // receber o html (precisa ser um json válido) converter para o php em array
+        return Cor::create( json_decode( $json, JSON_OBJECT_AS_ARRAY ) );
+    }
+
 
     public function show($id)
     {
     	$cor = Cor::find( $id);
 
     	return view( 'cores.show', compact( 'cor'));
+    }
+
+
+    public function showAPI($id)
+    {
+        $cor = Cor::find($id);
+
+        if ( $cor )
+        {
+            // Find acima já retorna como json
+            return $cor;
+        }
+        else
+        {
+            return json_encode( [ $id => 'nao existe' ] );
+        }
     }
 
 
@@ -82,10 +111,47 @@ class CoresController extends Controller
         return redirect()->route('cores.index')->with('success','Cor atualizada com sucesso');
     }
 
+
+    public function updateAPI(Request $request, $id)
+    {
+        $cor = Cor::find($id);
+
+        if ( $cor )
+        {
+            $json = $request->getContent();
+            $atualizacao    = json_decode( $json, JSON_OBJECT_AS_ARRAY );
+            $cor->nome = $atualizacao['nome'];
+            $ret = $cor->update() ? [ $id => 'atualizado' ] : [ $id =>'erro' ];
+        }
+        else
+        {
+            $ret = [$id => 'nao existe'];
+        }
+
+        return json_encode($ret);
+    }
+
+
+
     public function destroy($id)
     {
     	Cor::find($id)->delete();
 
     	return redirect()->route('cores.index')->with('success','Cor removida com sucesso');
+    }
+
+    public function destroyAPI($id)
+    {
+        $cor = Cor::find($id);
+
+        if ( $cor )
+        {
+            $ret = $cor->delete() ? [$id=> 'apagado'] : [$id => 'erro'];
+        }
+        else
+        {
+            $ret = [$id => 'Nao existe'];
+        }
+        return json_encode($ret);
     }
 }
