@@ -82,4 +82,50 @@ class VendedoresController extends Controller
         }
         return json_encode($ret);
     }
+
+    public function checkVendedor(int $idVendedor): bool
+    {
+        $vendedores = [
+            1 => 'Marcos',
+            2 => 'Amanda',
+            3 => 'Lucas',
+            4 => 'Regina'];
+
+            return array_key_exists( $idVendedor, $vendedores );
+    }
+
+    // Essa interrogação antes do tipo do retorno, significa que ele também aceita null, alem do tipo declarado como retorno
+    public function getVendedor(int $idVendedor): ?string
+    {
+        $vendedores = [
+            1 => 'Marcos',
+            2 => 'Amanda',
+            3 => 'Lucas',
+            4 => 'Regina'];
+
+        // ?? null com isso se não achar o indice, retorna null, assim não precisando usar ISet.
+        return $vendedores[$idVendedor] ?? null;
+    }
+
+    public function getJSON(): string
+    {
+        return json_encode( ['nome' => 'luiz'] );
+       // return 'teste';
+    }
+
+
+    public function getTextoErros(): string
+    {
+       return '';
+    }
+
+    public function getTexto(): string
+    {
+       return 'Texto maravilhoso';
+    }
+
+    public function getString(): string
+    {
+       return 'Teste';
+    }
 }
